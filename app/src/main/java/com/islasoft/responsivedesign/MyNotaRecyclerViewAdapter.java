@@ -2,24 +2,25 @@ package com.islasoft.responsivedesign;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.islasoft.responsivedesign.dummy.DummyContent.DummyItem;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Nota> mValues;
 
-    public MyNotaRecyclerViewAdapter(List<DummyItem> items) {
+    public MyNotaRecyclerViewAdapter(List<Nota> items) {
         mValues = items;
     }
 
@@ -33,9 +34,24 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.tv_titulo.setText(holder.mItem.getTitulo());
+        holder.tv_contenido.setText(holder.mItem.getContenido());
+
+        if (holder.mItem.isFavorita()){
+            holder.imv_favorito.setImageResource(R.drawable.ic_baseline_star_24);
+        }
+
+        holder.imv_favorito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Doing something", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    /*private void toast(String txt){
+        Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+    }*/
 
     @Override
     public int getItemCount() {
@@ -44,20 +60,23 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView tv_titulo;
+        public final TextView tv_contenido;
+        public final ImageView imv_favorito;
 
-        public ViewHolder(View view) {
+        public Nota mItem;
+
+        public ViewHolder(View view){
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tv_titulo = view.findViewById(R.id.tv_titulo);
+            tv_contenido = view.findViewById(R.id.tv_contenido);
+            imv_favorito = view.findViewById(R.id.imv_favorito);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tv_titulo.getText() + "'";
         }
     }
 }

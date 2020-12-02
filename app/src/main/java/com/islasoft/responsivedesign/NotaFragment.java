@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.islasoft.responsivedesign.dummy.DummyContent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -22,14 +24,18 @@ public class NotaFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int mColumnCount = 2; //Numero de Columnas que se muestran en la lista
+
+    //VARIABLES AGREGADAS
+    private List<Nota> notaList;
+    private MyNotaRecyclerViewAdapter adapterNotas;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public NotaFragment() {
-        
+
     }
 
     // TODO: Customize parameter initialization
@@ -63,9 +69,17 @@ public class NotaFragment extends Fragment {
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                //Se hace responsivo
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
             }
-            recyclerView.setAdapter(new MyNotaRecyclerViewAdapter(DummyContent.ITEMS));
+
+            notaList = new ArrayList<>();
+            notaList.add(new Nota("Tarea de Ejemplo", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+            notaList.add(new Nota("Tarea de Ejemplo 1", "Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo ", false, android.R.color.holo_blue_light));
+            notaList.add(new Nota("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaList);
+            recyclerView.setAdapter(adapterNotas);
         }
         return view;
     }
