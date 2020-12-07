@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
+import com.islasoft.responsivedesign.db.entity.NotaEntity;
+
 import org.jetbrains.annotations.NotNull;
 
 public class NuevaNotaDialogFragment extends DialogFragment {
-
-    private NuevaNotaDialogViewModel mViewModel;
 
     public static NuevaNotaDialogFragment newInstance() {
         return new NuevaNotaDialogFragment();
@@ -42,12 +43,11 @@ public class NuevaNotaDialogFragment extends DialogFragment {
         return inflater.inflate(R.layout.nueva_nota_dialog_fragment, container, false);
     }
 
-    @Override
+    /*@Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NuevaNotaDialogViewModel.class);
-        // TODO: Use the ViewModel
-    }
+
+    }*/
 
     //Creando un progressDialog para creaciones de notas
     @NotNull
@@ -73,11 +73,18 @@ public class NuevaNotaDialogFragment extends DialogFragment {
                         }
 
                         boolean favorita = swt_favorita.isChecked();
+
+                        //Comunicar al ViewModel el nuevo dato
+                        NuevaNotaDialogViewModel mViewModel = new ViewModelProvider(getActivity()).get(NuevaNotaDialogViewModel.class);
+                        mViewModel.insertNota(new NotaEntity(titulo, contenido, favorita, color));
+                        dialog.dismiss(); //Cerrar el cuadro de dialogo
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+
+                        dialog.dismiss();
+
                     }
                 });
 

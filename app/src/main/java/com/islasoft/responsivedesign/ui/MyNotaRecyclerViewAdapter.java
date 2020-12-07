@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<NotaEntity> mValues;
+    private List<NotaEntity> mValues; //Se elimina el valor final
     private Context ctx;
 
     public MyNotaRecyclerViewAdapter(List<NotaEntity> items, Context ctx)
@@ -33,6 +33,12 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_nota, parent, false);
         return new ViewHolder(view);
+    }
+
+    //Metodo que Settea/Actualiza la nueva lista de notas
+    public void setNewNotas(List<NotaEntity> nuevaNotas){
+        this.mValues = nuevaNotas; //Se le envia la nueva lista para actualizar
+        notifyDataSetChanged(); //Actualizar el adapter
     }
 
     @Override

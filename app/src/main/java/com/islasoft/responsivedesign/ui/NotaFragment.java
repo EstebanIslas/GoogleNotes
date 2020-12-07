@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.islasoft.responsivedesign.NuevaNotaDialogViewModel;
 import com.islasoft.responsivedesign.R;
 import com.islasoft.responsivedesign.db.entity.NotaEntity;
 
@@ -31,6 +35,8 @@ public class NotaFragment extends Fragment {
     //VARIABLES AGREGADAS
     private List<NotaEntity> notaEntityList;
     private MyNotaRecyclerViewAdapter adapterNotas;
+
+    private NuevaNotaDialogViewModel notaViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -76,13 +82,31 @@ public class NotaFragment extends Fragment {
             }
 
             notaEntityList = new ArrayList<>();
-            notaEntityList.add(new NotaEntity("Tarea de Ejemplo", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+            /*notaEntityList.add(new NotaEntity("Tarea de Ejemplo", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
             notaEntityList.add(new NotaEntity("Tarea de Ejemplo 1", "Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo ", false, android.R.color.holo_blue_light));
-            notaEntityList.add(new NotaEntity("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+            notaEntityList.add(new NotaEntity("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));*/
+
 
             adapterNotas = new MyNotaRecyclerViewAdapter(notaEntityList, getActivity());
             recyclerView.setAdapter(adapterNotas);
+
+            //Metodo que se encarga de consultar la existencia de nuevos datos
+            executeViewModel();
         }
         return view;
+    }
+
+    private void executeViewModel() {
+        //Se llama el ViewModel Fragment
+        notaViewModel = ViewModelProviders.of(getActivity())
+                .get(NuevaNotaDialogViewModel.class);
+
+        notaViewModel.getAllNotas().observe(getActivity(), new Observer<List<NotaEntity>>() {
+            @Override
+            public void onChanged(List<NotaEntity> notaEntities) {
+                //Actualizar el Adapter
+                adapterNotas.setNewNotas(notaEntities);
+            }
+        });//Observa si hay nuevos datos
     }
 }
