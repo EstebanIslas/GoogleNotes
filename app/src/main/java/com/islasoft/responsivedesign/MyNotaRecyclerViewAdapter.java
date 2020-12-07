@@ -2,13 +2,12 @@ package com.islasoft.responsivedesign;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.android.material.snackbar.Snackbar;
@@ -18,10 +17,13 @@ import java.util.List;
 
 public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Nota> mValues;
+    private final List<NotaEntity> mValues;
+    private Context ctx;
 
-    public MyNotaRecyclerViewAdapter(List<Nota> items) {
+    public MyNotaRecyclerViewAdapter(List<NotaEntity> items, Context ctx)
+    {
         mValues = items;
+        this.ctx = ctx;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
         public final TextView tv_contenido;
         public final ImageView imv_favorito;
 
-        public Nota mItem;
+        public NotaEntity mItem;
 
         public ViewHolder(View view){
             super(view);

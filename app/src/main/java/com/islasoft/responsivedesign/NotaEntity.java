@@ -1,17 +1,35 @@
 package com.islasoft.responsivedesign;
 
-public class Nota {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    private String titulo;
-    private String contenido;
-    private boolean favorita;
-    private int color;
+//Agregando Room
+@Entity(tableName = "notas") //Creando tabla de BD Offline
 
-    public Nota(String titulo, String contenido, boolean favorita, int color) {
+public class NotaEntity {
+
+    //Primary Key de la tabla
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    public String titulo;
+    public String contenido;
+    public boolean favorita;
+    public String color;
+
+    public NotaEntity(String titulo, String contenido, boolean favorita, String color) {
         this.titulo = titulo;
         this.contenido = contenido;
         this.favorita = favorita;
         this.color = color;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -38,11 +56,11 @@ public class Nota {
         this.favorita = favorita;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }

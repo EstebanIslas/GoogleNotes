@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (btn_login.isPressed()){
             toast("Welcome!!");
-            Intent notes = new Intent(MainActivity.this, NotasActivity.class);
+            Intent notes = new Intent(MainActivity.this, DashboardActivity.class);
             startActivity(notes);
         }
     }

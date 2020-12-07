@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -27,7 +26,7 @@ public class NotaFragment extends Fragment {
     private int mColumnCount = 2; //Numero de Columnas que se muestran en la lista
 
     //VARIABLES AGREGADAS
-    private List<Nota> notaList;
+    private List<NotaEntity> notaEntityList;
     private MyNotaRecyclerViewAdapter adapterNotas;
 
     /**
@@ -73,12 +72,12 @@ public class NotaFragment extends Fragment {
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
             }
 
-            notaList = new ArrayList<>();
-            notaList.add(new Nota("Tarea de Ejemplo", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
-            notaList.add(new Nota("Tarea de Ejemplo 1", "Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo ", false, android.R.color.holo_blue_light));
-            notaList.add(new Nota("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+            notaEntityList = new ArrayList<>();
+            notaEntityList.add(new NotaEntity("Tarea de Ejemplo", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
+            notaEntityList.add(new NotaEntity("Tarea de Ejemplo 1", "Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo ", false, android.R.color.holo_blue_light));
+            notaEntityList.add(new NotaEntity("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
 
-            adapterNotas = new MyNotaRecyclerViewAdapter(notaList);
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaEntityList);
             recyclerView.setAdapter(adapterNotas);
         }
         return view;
