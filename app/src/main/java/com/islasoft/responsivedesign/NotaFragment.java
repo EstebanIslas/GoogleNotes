@@ -77,7 +77,7 @@ public class NotaFragment extends Fragment {
             notaEntityList.add(new NotaEntity("Tarea de Ejemplo 1", "Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo Descripcion de Tarea de Ejemplo ", false, android.R.color.holo_blue_light));
             notaEntityList.add(new NotaEntity("Tarea de Ejemplo 2", "Descripcion de Tarea de Ejemplo", true, android.R.color.holo_blue_light));
 
-            adapterNotas = new MyNotaRecyclerViewAdapter(notaEntityList);
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaEntityList, getActivity());
             recyclerView.setAdapter(adapterNotas);
         }
         return view;
