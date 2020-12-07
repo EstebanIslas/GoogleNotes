@@ -1,4 +1,4 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.db;
 
 //Añadiendo una Base de Datos
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.islasoft.responsivedesign.db.dao.NotaDao;
+import com.islasoft.responsivedesign.db.entity.NotaEntity;
 
 //Se añade la version y las entidades que existen en la BD
 @Database(entities = {NotaEntity.class}, version = 1)

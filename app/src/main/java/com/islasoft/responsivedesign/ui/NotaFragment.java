@@ -1,4 +1,4 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.islasoft.responsivedesign.R;
+import com.islasoft.responsivedesign.db.entity.NotaEntity;
 
 import java.util.ArrayList;
 import java.util.List;

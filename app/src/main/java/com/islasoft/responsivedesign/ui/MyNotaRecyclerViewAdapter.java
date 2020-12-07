@@ -1,4 +1,4 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.ui;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 
 import com.google.android.material.snackbar.Snackbar;
+import com.islasoft.responsivedesign.db.entity.NotaEntity;
+import com.islasoft.responsivedesign.R;
 
 import java.util.List;
 

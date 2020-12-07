@@ -1,4 +1,4 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.db.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

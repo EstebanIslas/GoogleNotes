@@ -1,8 +1,9 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.ui;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.islasoft.responsivedesign.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

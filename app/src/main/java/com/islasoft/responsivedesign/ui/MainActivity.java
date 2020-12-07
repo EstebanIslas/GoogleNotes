@@ -1,4 +1,4 @@
-package com.islasoft.responsivedesign;
+package com.islasoft.responsivedesign.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.islasoft.responsivedesign.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
