@@ -1,5 +1,6 @@
 package com.islasoft.responsivedesign;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -25,8 +26,10 @@ public interface NotaDao {
     void deleteById(int idNota);
 
     @Query("SELECT * FROM notas ORDER BY titulo ASC") //Consultar todos los registros
-    List<NotaEntity> getAll(); //Se crea una lista y como parametro se anexan las entidades de la tabla
+    //Se adapta LiveData para trabajar con datos en tiempo real
+    LiveData<List<NotaEntity>> getAll(); //Se crea una lista y como parametro se anexan las entidades de la tabla
 
     @Query("SELECT * FROM notas WHERE favorita LIKE 'true'")
-    List<NotaEntity> getAllFavoritas();
+    //Se agregan para datos dinamicos
+    LiveData<List<NotaEntity>> getAllFavoritas();
 }
