@@ -1,5 +1,7 @@
 package com.islasoft.responsivedesign.ui;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.snackbar.Snackbar;
+import com.islasoft.responsivedesign.NuevaNotaDialogViewModel;
 import com.islasoft.responsivedesign.db.entity.NotaEntity;
 import com.islasoft.responsivedesign.R;
 
@@ -22,10 +25,14 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     private List<NotaEntity> mValues; //Se elimina el valor final
     private Context ctx;
 
+    private NuevaNotaDialogViewModel viewModel;
+
     public MyNotaRecyclerViewAdapter(List<NotaEntity> items, Context ctx)
     {
         mValues = items;
         this.ctx = ctx;
+        //Conecta al Fragment con el viewmodel para actualizar
+        viewModel = ViewModelProviders.of((AppCompatActivity)ctx).get(NuevaNotaDialogViewModel.class);
     }
 
     @Override
@@ -54,7 +61,17 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
         holder.imv_favorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Doing something", Snackbar.LENGTH_SHORT).show();
+                if (holder.mItem.isFavorita()){ //Si la nota no es favorita
+                    holder.mItem.setFavorita(false);
+                    holder.imv_favorito.setImageResource(R.drawable.ic_baseline_star_border_24);
+                    Snackbar.make(v, "Nota Actualizada", Snackbar.LENGTH_SHORT).show();
+                }else {
+                    holder.mItem.setFavorita(true);
+                    holder.imv_favorito.setImageResource(R.drawable.ic_baseline_star_24);
+                    Snackbar.make(v, "Nota Actualizada", Snackbar.LENGTH_SHORT).show();
+                }
+
+                viewModel.updateNota(holder.mItem); //Se envia al ViewModel
             }
         });
     }

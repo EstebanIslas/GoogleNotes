@@ -57,5 +57,23 @@ public class NotaRepository {
         }
     }
 
+    //Llamar el DAO para actualizar
+    public void update(NotaEntity nota){
+        //Se ejecuta la asynctask en segundo plano
+        new updateAsyncTask(notaDao).execute(nota);
+    }
 
+    //Creando clase para hacer un update en las notas
+    private static class updateAsyncTask extends AsyncTask<NotaEntity, Void, Void>{
+        private NotaDao notaDaoAsyncTask;
+
+        updateAsyncTask(NotaDao dao){
+            notaDaoAsyncTask = dao;
+        }
+        @Override
+        protected Void doInBackground(NotaEntity... notaEntities) {
+            notaDaoAsyncTask.update(notaEntities[0]); //Se inserta la nota nueva
+            return null;
+        }
+    }
 }
