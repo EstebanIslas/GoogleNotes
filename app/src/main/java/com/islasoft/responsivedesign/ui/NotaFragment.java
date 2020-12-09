@@ -3,7 +3,9 @@ package com.islasoft.responsivedesign.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -12,9 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.islasoft.responsivedesign.NuevaNotaDialogFragment;
 import com.islasoft.responsivedesign.NuevaNotaDialogViewModel;
 import com.islasoft.responsivedesign.R;
 import com.islasoft.responsivedesign.db.entity.NotaEntity;
@@ -63,6 +69,9 @@ public class NotaFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        //Se crea un metodo para forzar el menu de opciones que se creo en OnCreateOptionMenu
+        setHasOptionsMenu(true); //Se indica que el fragment tiene un menu de opciones
     }
 
     @Override
@@ -108,5 +117,35 @@ public class NotaFragment extends Fragment {
                 adapterNotas.setNewNotas(notaEntities);
             }
         });//Observa si hay nuevos datos
+    }
+
+    //Agregando menú añadir
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu_nota_fragment, menu);
+    }
+
+    //On click en el item de agregar nota
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.itm_add_nota:
+                mostrarDialogoNuevaNota();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    //Abre el fragment en forma de dialog para insertar nota
+    private void mostrarDialogoNuevaNota() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        //Se instancia la clase fragment
+        NuevaNotaDialogFragment dialogNuevaNota = new NuevaNotaDialogFragment();
+
+        //Mostrar el dialogo
+        dialogNuevaNota.show(fm,"NuevaNotaDialogFragment");
     }
 }
